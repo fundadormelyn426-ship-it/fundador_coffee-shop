@@ -1,5 +1,5 @@
 1. Copy/extract this project into C:\xampp\htdocs\
-2. Open: http://localhost/fundador_full/
+2. Open: http://localhost/fundador_coffee-shop/
 3. Start Apache and MySQL in XAMPP.
 4. Database: fundador_coffee
 5. db.sql uses CREATE DATABASE IF NOT EXISTS and CREATE TABLE IF NOT EXISTS.

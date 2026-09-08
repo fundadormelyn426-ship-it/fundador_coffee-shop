@@ -1,6 +1,3 @@
-FUNDADOR COFFEE - FULL WORKING PHP + MYSQL SYSTEM
-
-Structure:
 - index.php: storefront
 - login.php/register.php/logout.php: authentication
 - function.php: shared business functions
