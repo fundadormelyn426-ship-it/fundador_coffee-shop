@@ -1,0 +1,1 @@
+Admin-uploaded product images go in this folder. The database stores the relative image path.
