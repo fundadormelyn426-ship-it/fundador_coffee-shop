@@ -18,5 +18,3 @@ Run with XAMPP:
 3. Import db.sql in phpMyAdmin.
 4. Open http://localhost/fundador_full/
 5. Admin: admin@fundador.local / admin123
-
-Inventory: checkout locks and deducts stock; zero stock disables ordering; admin can restock.

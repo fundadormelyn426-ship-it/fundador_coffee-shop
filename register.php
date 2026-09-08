@@ -1,1 +1,153 @@
-<?php require_once 'config.php'; if($_SERVER['REQUEST_METHOD']==='POST'){ $name=trim($_POST['name']??'');$email=trim($_POST['email']??'');$pass=$_POST['password']??''; if(!$name||!filter_var($email,FILTER_VALIDATE_EMAIL)||strlen($pass)<6)$error='Enter a valid name/email and a password of at least 6 characters.';else{try{$s=$pdo->prepare('INSERT INTO users(name,email,password) VALUES(?,?,?)');$s->execute([$name,$email,password_hash($pass,PASSWORD_DEFAULT)]);header('Location: login.php?registered=1');exit;}catch(PDOException $e){$error='Email is already registered.';}}} ?><!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Register - Fundador</title><link rel="stylesheet" href="style.css"><style>.auth{max-width:430px;margin:70px auto;background:#fffaf3;padding:30px;border-radius:12px}.auth input{width:100%;box-sizing:border-box;padding:12px;margin:7px 0;border:1px solid #cdb9a5;border-radius:7px}.auth button{width:100%;padding:12px;border:0;border-radius:7px;background:#28551e;color:#fff;font-weight:bold}</style></head><body><main class="auth"><h1>Create Account</h1><?php if(isset($error)):?><p><?=h($error)?></p><?php endif;?><form method="post"><input name="name" placeholder="Full name" required><input type="email" name="email" placeholder="Email" required><input type="password" name="password" placeholder="Password (6+ characters)" required><button>Register</button></form><p>Already registered? <a href="login.php">Login</a></p></main></body></html>
+<?php
+
+require_once 'config.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Get form values
+    $name  = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $pass  = $_POST['password'] ?? '';
+
+    // Validate input
+    if (
+        !$name ||
+        !filter_var($email, FILTER_VALIDATE_EMAIL) ||
+        strlen($pass) < 6
+    ) {
+
+        $error = 'Enter a valid name/email and a password of at least 6 characters.';
+
+    } else {
+
+        try {
+
+            // Insert new user
+            $stmt = $pdo->prepare(
+                'INSERT INTO users (name, email, password)
+                 VALUES (?, ?, ?)'
+            );
+
+            $stmt->execute([
+                $name,
+                $email,
+                password_hash($pass, PASSWORD_DEFAULT)
+            ]);
+
+            // Registration successful
+            header('Location: login.php?registered=1');
+            exit;
+
+        } catch (PDOException $e) {
+
+            // Email already exists
+            $error = 'Email is already registered.';
+        }
+    }
+}
+
+?>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Register - Fundador</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .auth {
+            max-width: 430px;
+            margin: 70px auto;
+            background: #fffaf3;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .auth input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin: 7px 0;
+            border: 1px solid #cdb9a5;
+            border-radius: 7px;
+        }
+
+        .auth button {
+            width: 100%;
+            padding: 12px;
+            border: 0;
+            border-radius: 7px;
+            background: #28551e;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main class="auth">
+
+        <h1>Create Account</h1>
+
+        <?php if (isset($error)): ?>
+
+            <p>
+                <?= h($error) ?>
+            </p>
+
+        <?php endif; ?>
+
+        <form method="post">
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Full name"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Password (6+ characters)"
+                required
+            >
+
+            <button type="submit">
+                Register
+            </button>
+
+        </form>
+
+        <p>
+            Already registered?
+            <a href="login.php">Login</a>
+        </p>
+
+    </main>
+
+</body>
+
+</html>

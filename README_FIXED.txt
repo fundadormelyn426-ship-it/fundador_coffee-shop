@@ -1,5 +1,3 @@
-FUNDADOR COFFEE - FIXED BUILD
-
 1. Copy/extract this project into C:\xampp\htdocs\
 2. Open: http://localhost/fundador_full/
 3. Start Apache and MySQL in XAMPP.
